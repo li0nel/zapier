@@ -1,0 +1,24 @@
+{
+  "name": "wi5-zapier-application",
+  "version": "0.0.1",
+  "description": "The official Wi5 application for the Zapier platform.",
+  "repository": "wi5team/zapier-platform-app",
+  "homepage": "https://wi5.io",
+  "author": "Lionel Martin <lionel@wi5.io>",
+  "license": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node node_modules/mocha/bin/mocha --recursive"
+  },
+  "engines": {
+    "node": "8.10.0",
+    "npm": ">=5.6.0"
+  },
+  "dependencies": {
+    "zapier-platform-core": "8.0.1"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0",
+    "should": "^13.2.0"
+  }
+}
