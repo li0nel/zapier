@@ -13,17 +13,6 @@ const triggerOrder = (z, bundle) => {
     .then(response => JSON.parse(response.content).data);
 };
 
-const getFallbackRealOrder = (z, bundle) => {
-  // For the test poll, you should get some real data, to aid the setup process.
-  const options = {
-    url: `https://${bundle.inputData.appUrl}/api/merchant/orders`,
-    params: {}
-  };
-
-  return z.request(options).then(response => JSON.parse(response.content).data);
-};
-
-
 module.exports = {
   key: 'order',
   noun: 'Order',
@@ -38,7 +27,7 @@ module.exports = {
       {key: 'appUrl', label:'Application URL', required: true},
     ],
     perform: triggerOrder,
-    performList: getFallbackRealOrder,
+    performList: triggerOrder,
 
     sample: sample,
 

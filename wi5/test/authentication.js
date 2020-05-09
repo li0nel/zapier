@@ -35,7 +35,7 @@ describe('oauth2 app', () => {
     return appTester(App.authentication.oauth2Config.authorizeUrl, bundle).then(
       authorizeUrl => {
         authorizeUrl.should.eql(
-          `https://${process.env.AUTH0_DOMAIN}/authorize?client_id=${process.env.AUTH0_CLIENT_ID}&client_secret=${process.env.AUTH0_CLIENT_SECRET}&state=4444&redirect_uri=https%3A%2F%2Fzapier.com%2F&response_type=code&scope=openid%20email&audience=https%3A%2F%2Forder.staging.wi5.io`
+          `https://${process.env.AUTH0_DOMAIN}/authorize?client_id=${process.env.AUTH0_CLIENT_ID}&client_secret=${process.env.AUTH0_CLIENT_SECRET}&state=4444&redirect_uri=https%3A%2F%2Fzapier.com%2F&response_type=code&scope=openid%20email%20offline_access&audience=https%3A%2F%2Forder.staging.wi5.io`
         );
       }
     );

@@ -5,47 +5,47 @@ module.exports = {
   "paymentCapturedAt": "2019-11-16T21:18:11.000Z",
   "posSubmittedAt": "2019-11-16T21:16:09.000Z",
   "completedAt": null,
-  "total": 1315,
+  "total": 510,
   "deliveryInstructions": "224",
   "site": {
       "id": "7f7e8",
-      "name": "Bounce Old Street",
+      "name": "Quick Coffee Fix Old Street",
       "external_reference": 1685
   },
   "customer": {
-    "name": "Jon",
-    "email": "jon@wi5.io",
-    "phone_number": null
+    "name": "Leo",
+    "email": "leo@gmail.com",
+    "phone_number": "+447760502782"
   },
   "posOrderNumber": "1072",
   "basketSnapshot": [
     {
       "id": "7f7e8",
-      "name": "BIRRA MORETTI",
+      "name": "Espresso",
       "portion": {
         "id": "72800",
-        "name": "Pint",
-        "price": 575,
+        "name": "Single",
+        "price": 210,
         "modifiers": [],
         "description": null,
         "external_reference": 1685
       },
       "quantity": 1,
       "image_urls": null,
-      "external_reference": "Birra Moretti"
+      "external_reference": "Espresso"
     },
     {
       "id": "6a6e1",
-      "name": "SILENT POOL",
+      "name": "Flat White",
       "portion": {
         "id": "7b77d",
-        "name": "25ml",
-        "price": 490,
+        "name": "Regular",
+        "price": 260,
         "modifiers": [
           {
             "id": "741e2",
-            "name": "Fever Tree Tonic",
-            "price_addition": 250,
+            "name": "Oat Milk",
+            "price_addition": 40,
             "external_reference": 1734
           }
         ],
@@ -54,7 +54,7 @@ module.exports = {
       },
       "quantity": 1,
       "image_urls": null,
-      "external_reference": "Silent Pool"
+      "external_reference": "Flat White"
     }
   ],
   "status": "payment_captured"

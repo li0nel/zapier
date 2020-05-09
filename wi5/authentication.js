@@ -29,7 +29,7 @@ const getAccessToken = (z, bundle) => {
 
     return {
       access_token: result.access_token,
-      refresh_token: '123' // TODO not working
+      refresh_token: result.refresh_token,
     };
   });
 };
