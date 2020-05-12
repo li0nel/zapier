@@ -1,38 +1,43 @@
-const fs = require('fs');
-const path = require('path');
-const xmlParser = require('xml2json');
+var convert = require('xml-js');
 
 const testAuth = (z , bundle) => {
-  let xml = fs.readFileSync(path.resolve(__dirname, './soap-envelopes/get_system_users.xml'), 'utf-8');
+  let xml = '<?xml version="1.0" encoding="UTF-8"?><SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="https://secure.airship.co.uk/SOAP/V3/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"><SOAP-ENV:Body><ns1:getSystemUsers><username xsi:type="xsd:string">{{username}}</username><password xsi:type="xsd:string">{{password}}</password></ns1:getSystemUsers></SOAP-ENV:Body></SOAP-ENV:Envelope>' // fs.readFileSync(path.resolve(__dirname, './soap-envelopes/get_system_users.xml'), 'utf-8');
   xml = xml.replace(/{{username}}/g, bundle.authData.soap_username);
   xml = xml.replace(/{{password}}/g, bundle.authData.soap_password);
 
-  console.log(xml)
-  console.log({
-    SOAPAction: 'https://secure.airship.co.uk/SOAP/V3/Admin/getSystemUsers',
-    'Content-Type': 'application/text+xml; charset=utf-8'
-  })
-
-  const promise = z.request({
-    method: 'POST',
-    url: `https://secure.airship.co.uk/SOAP/V3/Admin.php`,
-    headers: {
-      SOAPAction: 'https://secure.airship.co.uk/SOAP/V3/Admin/getSystemUsers',
-      'Content-Type': 'application/text+xml; charset=utf-8'
-    },
-    body: xml
+  let body = convert.xml2js('<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="https://secure.airship.co.uk/SOAP/V3/Admin" xmlns:ns2="https://secure.airship.co.uk/SOAP/V3/" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"><SOAP-ENV:Body><ns1:getSystemUsersResponse><output SOAP-ENC:arrayType="ns2:authDetails[2]" xsi:type="ns2:authDetailsArray"><item xsi:type="ns2:authDetails"><userid xsi:type="xsd:int">5720</userid><roleid xsi:type="xsd:int">982</roleid><unitid xsi:type="xsd:int">3764</unitid><username xsi:type="xsd:string">ptsupport341</username><password xsi:type="xsd:string">***</password><firstname xsi:type="xsd:string">Powertext</firstname><lastname xsi:type="xsd:string">Support</lastname><mobilenumber xsi:type="xsd:string">447519694019</mobilenumber><email xsi:type="xsd:string">support@airship.co.uk</email><telephone xsi:type="xsd:string">08456580108</telephone><createdtime xsi:type="xsd:int">1588758656</createdtime><candelete xsi:type="xsd:string">N</candelete><ptadminuser xsi:type="xsd:string">Y</ptadminuser></item><item xsi:type="ns2:authDetails"><userid xsi:type="xsd:int">5721</userid><roleid xsi:type="xsd:int">983</roleid><unitid xsi:type="xsd:int">3764</unitid><username xsi:type="xsd:string">LionelM</username><password xsi:type="xsd:string">***</password><firstname xsi:type="xsd:string">Lionel</firstname><lastname xsi:type="xsd:string">Martin</lastname><mobilenumber xsi:type="xsd:string">07760502782</mobilenumber><email xsi:type="xsd:string">lionel@wi5.io</email><createdtime xsi:type="xsd:int">1588758783</createdtime><candelete xsi:type="xsd:string">Y</candelete><ptadminuser xsi:type="xsd:string">N</ptadminuser></item></output></ns1:getSystemUsersResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>', {
+    compact: true,
+    trim: true,
+    nativeType: true
   });
 
-  // This method can return any truthy value to indicate the credentials are valid.
-  // Raise an error to show
-  return promise.then(response => {
-    if (response.status === 401) {
-      throw new Error('The credentials you supplied are invalid');
-    }
+  return body['SOAP-ENV:Envelope']['SOAP-ENV:Body']['ns1:getSystemUsersResponse']['output']['item'].map(user => ({
+    user_id: user.userid._text,
+    email: user.email._text
+  }))[1];
 
-    let body = JSON.parse(xmlParser.toJson(response.content));
-    return body['SOAP-ENV:Envelope']['SOAP-ENV:Body']['ns1:getSystemUsersResponse']['output']['item'].map(user => user.userid['$t']);
-  });
+  // const promise = z.request({
+  //   method: 'POST',
+  //   url: `https://secure.airship.co.uk/SOAP/V3/Admin.php`,
+  //   headers: {
+  //     SOAPAction: 'https://secure.airship.co.uk/SOAP/V3/getSystemUsers',
+  //     'Content-Type': 'application/text+xml; charset=utf-8'
+  //   },
+  //   body: xml
+  // });
+
+  // // This method can return any truthy value to indicate the credentials are valid.
+  // // Raise an error to show
+  // return promise.then(response => {
+  //   if (response.status === 401) {
+  //     throw new Error('The credentials you supplied are invalid');
+  //   }
+
+  //   z.console.log('response ', response.content)
+
+  //   // let body = JSON.parse(xmlParser.toJson(response.content));
+  //   // return body['SOAP-ENV:Envelope']['SOAP-ENV:Body']['ns1:getSystemUsersResponse']['output']['item'].map(user => user.userid['$t']);
+  // });
 };
 
 module.exports = {
@@ -48,8 +53,10 @@ module.exports = {
   test: testAuth,
   // The method that will exchange the fields provided by the user for session credentials.
   sessionConfig: {
-    perform: () => {}
+    perform: () => ({
+      access_token: 'dummy'
+    })
   },
-  // assuming "username" is a key returned from the test
-  connectionLabel: 'test' //'{{username}}'
+  // assuming "email" is a key returned from the test
+  connectionLabel: '{{email}}'
 };

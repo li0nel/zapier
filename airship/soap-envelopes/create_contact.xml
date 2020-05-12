@@ -14,6 +14,7 @@
 				<mobilenumber xsi:type="xsd:string">{{mobile_number}}</mobilenumber>
 				<email xsi:type="xsd:string">{{email}}</email>
 				<allowemail xsi:type="xsd:string">{{allow_email}}</allowemail>
+        <allowsms xsi:type="xsd:string">{{allow_email}}</allowsms>
 				<sourceid xsi:type="xsd:string">{{source_id}}</sourceid>
 			</contactData>
 			<groups SOAP-ENC:arrayType="xsd:int[1]" xsi:type="ns1:GroupArray">

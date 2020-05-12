@@ -1,16 +1,9 @@
 const contactCreate = require('./creates/contact');
-// const basketCreate = require('./creates/basket');
+const contactSearch = require('./searches/contact');
+const groupList = require('./triggers/groupList');
+const unitList = require('./triggers/unitList');
 
 const authentication = require('./authentication');
-
-// To include the Authorization header on all outbound requests, simply define a function here.
-// It runs runs before each request is sent out, allowing you to make tweaks to the request in a centralized spot
-// const includeBearerToken = (request, z, bundle) => {
-//   if (bundle.authData.access_token) {
-//     request.headers['Authorization'] = `Bearer ${bundle.authData.access_token}`
-//   }
-//   return request;
-// };
 
 const sessionRefreshIf401 = (response, z, bundle) => {
   if (response.status === 401) {
@@ -40,10 +33,15 @@ const App = {
   resources: {},
 
   // If you want your trigger to show up, you better include it here!
-  triggers: {},
+  triggers: {
+    [unitList.key]: unitList,
+    [groupList.key]: groupList,
+  },
 
   // If you want your searches to show up, you better include it here!
-  searches: {},
+  searches: {
+    [contactSearch.key]: contactSearch,
+  },
 
   // If you want your creates to show up, you better include it here!
   creates: {
