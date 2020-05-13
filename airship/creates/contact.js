@@ -2,8 +2,9 @@ var convert = require('xml-js');
 const contactSearch = require('../searches/contact').operation.perform;
 
 const createContactIfNotExists = (z, bundle) => {
-  if (!contactSearch(z, bundle).empty)
-    return createContact(z, bundle);
+  return contactSearch(z, bundle).then(contact => {
+    return contact.empty ? createContact(z, bundle).then(c => c) : contact[0];
+  })
 }
 
 const createContact = (z, bundle) => {
@@ -40,6 +41,10 @@ const createContact = (z, bundle) => {
       compact: true,
       trim: true,
       nativeType: true
+    });
+
+    z.console.log({
+      id: body['SOAP-ENV:Envelope']['SOAP-ENV:Body']['ns1:createContactResponse']['output']['_text']
     });
 
     return {
