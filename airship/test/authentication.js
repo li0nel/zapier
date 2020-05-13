@@ -7,6 +7,11 @@ const zapier = require('zapier-platform-core');
 const App = require('../index');
 const appTester = zapier.createAppTester(App);
 
+process.env.AIRSHIP_PROTOCOL = 'https'
+process.env.AIRSHIP_DOMAIN = 'secure.airship.co.uk'
+// process.env.AIRSHIP_PROTOCOL = 'http'
+// process.env.AIRSHIP_DOMAIN = '35.178.91.246'
+
 describe('SOAP app', () => {
   it('can login using SOAP username and password', () => {
     const bundle = {

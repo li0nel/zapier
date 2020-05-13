@@ -19,7 +19,8 @@ describe('creates', () => {
           email: 'lio@wi5.io',
           mobile_number: '07760502782',
           allow_email: 'N',
-          group_id: 93264
+          group_id: 93264,
+          source_id: 37060
         }
       };
 

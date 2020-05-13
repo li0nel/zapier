@@ -1,28 +1,48 @@
 var convert = require('xml-js');
 
 const searchContact = (z, bundle) => {
-  let xml = '<?xml version="1.0" encoding="UTF-8"?><SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="https://secure.airship.co.uk/SOAP/V3/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"><SOAP-ENV:Body><ns1:getContactEmail><username xsi:type="xsd:string">{{username}}</username><password xsi:type="xsd:string">{{password}}</password><email xsi:type="xsd:string">{{email}}</email></ns1:getContactEmail></SOAP-ENV:Body></SOAP-ENV:Envelope>' // fs.readFileSync(path.resolve(__dirname, './soap-envelopes/get_system_users.xml'), 'utf-8');
+  // let xml = fs.readFileSync(path.resolve(__dirname, './soap-envelopes/get_system_users.xml'), 'utf-8');
+  let xml = '<?xml version="1.0" encoding="UTF-8"?><SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="https://secure.airship.co.uk/SOAP/V3/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"><SOAP-ENV:Body><ns1:getContactEmail><username xsi:type="xsd:string">{{username}}</username><password xsi:type="xsd:string">{{password}}</password><email xsi:type="xsd:string">{{email}}</email></ns1:getContactEmail></SOAP-ENV:Body></SOAP-ENV:Envelope>'
   xml = xml.replace(/{{username}}/g, bundle.authData.soap_username);
   xml = xml.replace(/{{password}}/g, bundle.authData.soap_password);
+  xml = xml.replace(/{{email}}/g, bundle.inputData.email);
 
-  let body = convert.xml2js('<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="https://secure.airship.co.uk/SOAP/V3/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"><SOAP-ENV:Body><ns1:getContactEmailResponse><output xsi:type="ns1:contactStruct"><contactData xsi:type="ns1:contactObject"><contactid xsi:type="xsd:int">27891429</contactid><firstname xsi:type="xsd:string">Lionel</firstname><preferredmethodid xsi:type="xsd:string">0</preferredmethodid><mobilenumber xsi:type="xsd:string">447760502783</mobilenumber><email xsi:type="xsd:string">lionel@wi5.io</email><allowsms xsi:type="xsd:string">N</allowsms><allowcall xsi:type="xsd:string">N</allowcall><allowemail xsi:type="xsd:string">N</allowemail><allowsnailmail xsi:type="xsd:string">N</allowsnailmail></contactData><groups SOAP-ENC:arrayType="xsd:int[1]" xsi:type="ns1:GroupArray"><item xsi:type="xsd:int">93264</item></groups></output></ns1:getContactEmailResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>', {
-    compact: true,
-    trim: true,
-    nativeType: true
+  const promise = z.request({
+    method: 'POST',
+    url: `${process.env.AIRSHIP_PROTOCOL}://${process.env.AIRSHIP_DOMAIN}/SOAP/V3/Contact.php`,
+    headers: {
+      SOAPAction: `${process.env.AIRSHIP_PROTOCOL}://${process.env.AIRSHIP_DOMAIN}/SOAP/V3/getContactEmail`,
+      'Content-Type': 'application/text+xml; charset=utf-8'
+    },
+    body: xml
   });
 
-  let contactData = body['SOAP-ENV:Envelope']['SOAP-ENV:Body']['ns1:getContactEmailResponse']['output']['contactData'];
-  
-  return [{
-    id: contactData['contactid']['_text'],
-    firstname: contactData['firstname']['_text'],
-    mobilenumber: contactData['mobilenumber']['_text'],
-    email: contactData['email']['_text'],
-    allowsms: contactData['allowsms']['_text'],
-    allowcall: contactData['allowcall']['_text'],
-    allowemail: contactData['allowemail']['_text'],
-    allowsnailmail: contactData['allowsnailmail']['_text']
-  }];
+  // This method can return any truthy value to indicate the credentials are valid.
+  // Raise an error to show
+  return promise.then(response => {
+    if (response.status === 500) {
+      throw new Error('The credentials you supplied are invalid');
+    }
+    
+    let body = convert.xml2js(response.content, {
+      compact: true,
+      trim: true,
+      nativeType: true
+    });
+
+    let contactData = body['SOAP-ENV:Envelope']['SOAP-ENV:Body']['ns1:getContactEmailResponse']['output'].contactData;
+
+    return contactData === undefined ? [] : [{
+      id: contactData['contactid']['_text'],
+      firstname: contactData['firstname']['_text'],
+      mobilenumber: contactData['mobilenumber']['_text'],
+      email: contactData['email']['_text'],
+      allowsms: contactData['allowsms']['_text'],
+      allowcall: contactData['allowcall']['_text'],
+      allowemail: contactData['allowemail']['_text'],
+      allowsnailmail: contactData['allowsnailmail']['_text']
+    }];
+  });
 }
 
 // We recommend writing your creates separate like this and rolling them
