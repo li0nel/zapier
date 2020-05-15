@@ -25,8 +25,6 @@ const getAccessToken = (z, bundle) => {
 
     const result = JSON.parse(response.content);
 
-    z.console.log(response.content)
-
     return {
       access_token: result.access_token,
       refresh_token: 'a_refresh_token' //result.refresh_token,
