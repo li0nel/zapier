@@ -15,6 +15,8 @@ export AUTH0_CLIENT_ID=1234 AUTH0_CLIENT_SECRET=asdf AUTH0_DOMAIN=auth-json-serv
 
 zapier test
 
+zapier env:set 0.0.1 AUTH0_DOMAIN=staging-wi5.eu.auth0.com AUTH0_CLIENT_ID=NAjTwAnysSd1bTsmPxkhK0vdFPoyBb75 AUTH0_CLIENT_SECRET=xxxx
+
 zapier push
 ```
 

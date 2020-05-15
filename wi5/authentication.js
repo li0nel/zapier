@@ -29,7 +29,7 @@ const getAccessToken = (z, bundle) => {
 
     return {
       access_token: result.access_token,
-      refresh_token: '123' //result.refresh_token,
+      refresh_token: 'a_refresh_token' //result.refresh_token,
     };
   });
 };

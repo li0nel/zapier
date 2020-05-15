@@ -1,61 +1,41 @@
 module.exports = {
-  "id": "8f4953af-2d09-4fb1-ab9c-d2010c5a1062",
-  "createdAt": "2019-11-16T21:16:07.000Z",
-  "paymentAuthorizedAt": "2019-11-16T21:16:09.000Z",
-  "paymentCapturedAt": "2019-11-16T21:18:11.000Z",
-  "posSubmittedAt": "2019-11-16T21:16:09.000Z",
+  "id": "94a69b45-9d28-4fd2-ad1a-a8ccea0db9b2",
+  "createdAt": "2020-05-12T14:28:43.000Z",
+  "paymentAuthorizedAt": "2020-05-12T14:29:59.000Z",
+  "paymentCapturedAt": "2020-05-12T14:32:02.000Z",
+  "posSubmittedAt": "2020-05-12T14:30:00.000Z",
   "completedAt": null,
-  "total": 510,
-  "deliveryInstructions": "224",
-  "site": {
-      "id": "7f7e8",
-      "name": "Quick Coffee Fix Old Street",
-      "external_reference": 1685
-  },
+  "total": 1450,
+  "deliveryInstructions": "(none)",
   "customer": {
-    "name": "Leo",
-    "email": "leo@gmail.com",
-    "phone_number": "+447760502782"
+    "name": "Brett",
+    "email": "brett@wi5.io",
+    "phoneNumber": "+44 7497 674728",
+    "emailOptIn": false,
+    "address": null
   },
-  "posOrderNumber": "1072",
+  "posOrderNumber": "1169910",
   "basketSnapshot": [
     {
-      "id": "7f7e8",
-      "name": "Espresso",
+      "id": "fa922",
+      "name": "All Day Breakfast",
       "portion": {
-        "id": "72800",
-        "name": "Single",
-        "price": 210,
+        "id": "b5356",
+        "name": "Portion",
+        "price": 725,
         "modifiers": [],
         "description": null,
-        "external_reference": 1685
+        "external_reference": "19808"
       },
-      "quantity": 1,
-      "image_urls": null,
-      "external_reference": "Espresso"
-    },
-    {
-      "id": "6a6e1",
-      "name": "Flat White",
-      "portion": {
-        "id": "7b77d",
-        "name": "Regular",
-        "price": 260,
-        "modifiers": [
-          {
-            "id": "741e2",
-            "name": "Oat Milk",
-            "price_addition": 40,
-            "external_reference": 1734
-          }
-        ],
-        "description": null,
-        "external_reference": 1931
-      },
-      "quantity": 1,
-      "image_urls": null,
-      "external_reference": "Flat White"
+      "quantity": 2,
+      "image_urls": [
+        "https://res.cloudinary.com/wi5/image/upload/v1575889689/CrepeAffaire/AllDayBreakfast_apmorw.png"
+      ],
+      "external_reference": "158673"
     }
   ],
-  "status": "payment_captured"
+  "paymentStatus": "payment-captured",
+  "orderStage": "accepted",
+  "posAccount": "0d5af003-01de-4c10-b08e-cbccfd8a601f",
+  "siteId": "site_1"
 }
