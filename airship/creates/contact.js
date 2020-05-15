@@ -43,10 +43,6 @@ const createContact = (z, bundle) => {
       nativeType: true
     });
 
-    z.console.log({
-      id: body['SOAP-ENV:Envelope']['SOAP-ENV:Body']['ns1:createContactResponse']['output']['_text']
-    });
-
     return {
       id: body['SOAP-ENV:Envelope']['SOAP-ENV:Body']['ns1:createContactResponse']['output']['_text']
     };
