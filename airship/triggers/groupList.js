@@ -34,7 +34,10 @@ const groupList = (z, bundle) => {
       nativeType: true
     });
 
-    return body['SOAP-ENV:Envelope']['SOAP-ENV:Body']['ns1:groupListResponse']['output']['item']['groups']['item'].map(g => ({
+    let groups = body['SOAP-ENV:Envelope']['SOAP-ENV:Body']['ns1:groupListResponse']['output']['item']['groups']['item'];
+    let group_array = groups.constructor === Array ? groups : [groups];
+
+    return group_array.map(g => ({
       id: g.groupid['_text'],
       name: g.groupname['_text']
     }));

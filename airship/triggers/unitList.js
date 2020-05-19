@@ -34,7 +34,10 @@ const unitList = (z, bundle) => {
       nativeType: true
     });
 
-    return body['SOAP-ENV:Envelope']['SOAP-ENV:Body']['ns1:unitListResponse']['output']['item'].map(u => ({
+    let units = body['SOAP-ENV:Envelope']['SOAP-ENV:Body']['ns1:unitListResponse']['output']['item'];
+    let unit_array = units.constructor === Array ? units : [units];
+
+    return unit_array.map(u => ({
       id: u.unitid['_text'],
       name: u.name['_text']
     }));
