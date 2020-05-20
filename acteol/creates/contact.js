@@ -1,4 +1,17 @@
-const sample = require('../samples/sample_contact');
+const sample = require('../samples/contact');
+
+const createContact = (z, bundle) => {
+  const promise = z.request({
+    url: `https://${bundle.authData.atreemoURL}/api/Contact/PostContact`,
+    method: 'POST',
+    body: {
+      FirstName: bundle.inputData.firstName,
+      Email: bundle.inputData.email,
+    }
+  });
+
+  return promise.then(response => response.json);
+}
 
 // We recommend writing your creates separate like this and rolling them
 // into the App definition at the end.
@@ -19,18 +32,7 @@ module.exports = {
       { key: 'firstName', required: true, type: 'string' },
       { key: 'email', required: true, type: 'string' }
     ],
-    perform: (z, bundle) => {
-      const promise = z.request({
-        url: `https://${bundle.authData.atreemoURL}/api/Contact/PostContact`,
-        method: 'POST',
-        body: {
-          FirstName: bundle.inputData.firstName,
-          Email: bundle.inputData.email,
-        }
-      });
-
-      return promise.then(response => response.json);
-    },
+    perform: createContact,
 
     // In cases where Zapier needs to show an example record to the user, but we are unable to get a live example
     // from the API, Zapier will fallback to this hard-coded sample. It should reflect the data structure of
@@ -45,7 +47,7 @@ module.exports = {
       { key: 'CtcID', label: 'Contact ID' },
       { key: 'FirstName', label: 'First name' },
       { key: 'LastName', label: 'Last name' },
-      { key: 'Email', label: 'email' },
+      { key: 'Email', label: 'Email' },
       { key: 'CpyID', label: 'Company ID' }
     ]
   }
