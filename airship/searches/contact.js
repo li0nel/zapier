@@ -70,9 +70,9 @@ module.exports = {
     // returned records, and have obviously dummy values that we can show to any user.
     sample: {
       id: 27891429,
-      firstname: 'Lionel',
+      firstname: 'Kanye',
       mobilenumber: 447760502783,
-      email: 'lionel@wi5.io',
+      email: 'kanye@wi5.io',
       allowsms: 'N',
       allowcall: 'N',
       allowemail: 'N',
