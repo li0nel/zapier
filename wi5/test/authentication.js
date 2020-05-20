@@ -4,6 +4,7 @@ const zapier = require('zapier-platform-core');
 const App = require('../index');
 const appTester = zapier.createAppTester(App);
 const sample_token = require('../samples/token')
+const sample_refresh_token = require('../samples/refresh_token')
 const sample_user_info = require('../samples/user_info')
 const nock = require('nock');
 
@@ -51,25 +52,23 @@ describe('oauth2 app', () => {
     );
   });
 
-  // it('can refresh the access token', () => {
-  //   const bundle = {
-  //     // In production, Zapier provides these. For testing, we have hard-coded them.
-  //     // When writing tests for your own app, you should consider exporting them and doing process.env.MY_ACCESS_TOKEN
-  //     authData: {
-  //       access_token: 'a_token',
-  //       refresh_token: 'a_refresh_token'
-  //     }
-  //   };
+  it('can refresh the access token', () => {
+    const bundle = {
+      authData: {
+        access_token: 'a_token',
+        refresh_token: 'a_refresh_token'
+      }
+    };
 
-  //   const scope = nock(/example\.com/)
-  //     .post('/oauth/token')
-  //     .reply(200, sample_refresh_token);
+    const scope = nock(/example\.com/)
+      .post('/oauth/token')
+      .reply(200, sample_refresh_token);
 
-  //   return appTester(App.authentication.oauth2Config.refreshAccessToken, bundle).then(
-  //     result => {
-  //       result.access_token.should.eql('a_new_token');
-  //     });
-  //   });
+    return appTester(App.authentication.oauth2Config.refreshAccessToken, bundle).then(
+      token => {
+        token.should.have.ownProperty('access_token')
+      });
+    });
 
   it('includes the access token in future requests', () => {
     const bundle = {
