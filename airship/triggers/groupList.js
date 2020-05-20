@@ -1,11 +1,6 @@
 var convert = require('xml-js');
 
 const groupList = (z, bundle) => {
-  // return [
-  //   { id: '93262', name: 'Default (Default Folder)' },
-  //   { id: '93263', name: 'WiFi (Default Folder)' }
-  // ];
-
   let xml = '<?xml version="1.0" encoding="UTF-8"?><SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="https://secure.airship.co.uk/SOAP/V3/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"><SOAP-ENV:Body><ns1:groupList><username xsi:type="xsd:string">{{username}}</username><password xsi:type="xsd:string">{{password}}</password><unitID xsi:type="xsd:int">{{unit_id}}</unitID></ns1:groupList></SOAP-ENV:Body></SOAP-ENV:Envelope>';
   xml = xml.replace(/{{username}}/g, bundle.authData.soap_username);
   xml = xml.replace(/{{password}}/g, bundle.authData.soap_password);
