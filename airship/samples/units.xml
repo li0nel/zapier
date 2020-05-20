@@ -1,0 +1,28 @@
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="https://secure.airship.co.uk/SOAP/V3/" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+  <SOAP-ENV:Body>
+    <ns1:unitListResponse>
+      <output SOAP-ENC:arrayType="ns1:Unit[4]" xsi:type="ns1:UnitsArray">
+        <item xsi:type="ns1:Unit">
+          <unitid xsi:type="xsd:int">3767</unitid>
+          <name xsi:type="xsd:string">Empty Unit Test</name>
+          <isroot xsi:type="xsd:string">N</isroot>
+        </item>
+        <item xsi:type="ns1:Unit">
+          <unitid xsi:type="xsd:int">3764</unitid>
+          <name xsi:type="xsd:string">Head Office</name>
+          <isroot xsi:type="xsd:string">Y</isroot>
+        </item>
+        <item xsi:type="ns1:Unit">
+          <unitid xsi:type="xsd:int">3765</unitid>
+          <name xsi:type="xsd:string">Location 1</name>
+          <isroot xsi:type="xsd:string">N</isroot>
+        </item>
+        <item xsi:type="ns1:Unit">
+          <unitid xsi:type="xsd:int">3766</unitid>
+          <name xsi:type="xsd:string">Location 2</name>
+          <isroot xsi:type="xsd:string">N</isroot>
+        </item>
+      </output>
+    </ns1:unitListResponse>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

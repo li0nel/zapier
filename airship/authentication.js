@@ -29,11 +29,6 @@ const testAuth = (z , bundle) => {
       nativeType: true
     });
 
-    z.console.log(body['SOAP-ENV:Envelope']['SOAP-ENV:Body']['ns1:getSystemUsersResponse']['output']['item'].map(user => ({
-      user_id: user.userid._text,
-      email: user.email._text
-    }))[1])
-
     return body['SOAP-ENV:Envelope']['SOAP-ENV:Body']['ns1:getSystemUsersResponse']['output']['item'].map(user => ({
       user_id: user.userid._text,
       email: user.email._text
