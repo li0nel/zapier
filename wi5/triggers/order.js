@@ -1,4 +1,4 @@
-const sample = require('../samples/sample_order');
+const sample = require('../samples/order');
 
 const triggerOrder = (z, bundle) => {
   const responsePromise = z.request({

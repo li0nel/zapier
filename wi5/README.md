@@ -11,8 +11,6 @@ zapier login --sso
 
 zapier register
 
-export AUTH0_CLIENT_ID=1234 AUTH0_CLIENT_SECRET=asdf AUTH0_DOMAIN=auth-json-server.zapier-staging.com OAUTH_TOKEN_URL=/oauth/access-token OAUTH_CONTENT_TYPE=application/x-www-form-urlencoded OAUTH_REFRESH_TOKEN_URL=/oauth/refresh-token OAUTH_USER_PROFILE_URL=/me
-
 zapier test
 
 zapier env:set 0.0.1 AUTH0_DOMAIN=staging-wi5.eu.auth0.com AUTH0_CLIENT_ID=NAjTwAnysSd1bTsmPxkhK0vdFPoyBb75 AUTH0_CLIENT_SECRET=xxxx

@@ -1,9 +1,9 @@
-process.env.OAUTH_TOKEN_URL = process.env.OAUTH_TOKEN_URL || '/oauth/token'
-process.env.OAUTH_REFRESH_TOKEN_URL = process.env.OAUTH_REFRESH_TOKEN_URL || '/oauth/token'
-process.env.OAUTH_USER_PROFILE_URL = process.env.OAUTH_USER_PROFILE_URL || '/userinfo'
+process.env.AUTH0_DOMAIN = process.env.AUTH0_DOMAIN || 'example.com';
+process.env.AUTH0_CLIENT_ID = process.env.AUTH0_CLIENT_ID || '1234';
+process.env.AUTH0_CLIENT_SECRET = process.env.AUTH0_CLIENT_SECRET || 'asdf';
 
 const getAccessToken = (z, bundle) => {
-  const promise = z.request(`https://${process.env.AUTH0_DOMAIN}${process.env.OAUTH_TOKEN_URL}`, {
+  const promise = z.request(`https://${process.env.AUTH0_DOMAIN}/oauth/token`, {
     method: 'POST',
     body: {
       code: bundle.inputData.code,
@@ -13,7 +13,7 @@ const getAccessToken = (z, bundle) => {
       redirect_uri: bundle.inputData.redirect_uri
     },
     headers: {
-      'content-type': process.env.OAUTH_CONTENT_TYPE || 'application/json'
+      'content-type': 'application/json'
     }
   });
 
@@ -33,7 +33,7 @@ const getAccessToken = (z, bundle) => {
 };
 
 const refreshAccessToken = (z, bundle) => {
-  const promise = z.request(`https://${process.env.AUTH0_DOMAIN}${process.env.OAUTH_REFRESH_TOKEN_URL}`, {
+  const promise = z.request(`https://${process.env.AUTH0_DOMAIN}/oauth/token`, {
     method: 'POST',
     body: {
       refresh_token: bundle.authData.refresh_token,
@@ -42,7 +42,7 @@ const refreshAccessToken = (z, bundle) => {
       grant_type: 'refresh_token'
     },
     headers: {
-      'content-type': process.env.OAUTH_CONTENT_TYPE || 'application/json'
+      'content-type': 'application/json'
     }
   });
 
@@ -65,7 +65,7 @@ const testAuth = (z, bundle) => {
   // every user will have access to, such as an account or profile endpoint like /me.
   const promise = z.request({
     method: 'GET',
-    url: `https://${process.env.AUTH0_DOMAIN}${process.env.OAUTH_USER_PROFILE_URL}`,
+    url: `https://${process.env.AUTH0_DOMAIN}/userinfo`,
     headers: {
       'Authorization': `Bearer ${bundle.authData.access_token}`
     }

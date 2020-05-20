@@ -1,5 +1,5 @@
 /* globals describe, it */
-const sample = require('../samples/sample_order');
+const sample = require('../samples/order');
 
 require('should');
 
