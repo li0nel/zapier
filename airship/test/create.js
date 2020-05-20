@@ -19,14 +19,14 @@ describe('create contact', () => {
       authData: {
         soap_username: 'dummy',
         soap_password: 'dummy',
+        source_id: 1234
       },
       inputData: {
         first_name: 'Kanye',
         email: 'kanye@wi5.io',
         mobile_number: '07760502783',
         allow_email: 'N',
-        group_id: 1234,
-        source_id: 1234
+        group_id: 1234
       }
     };
 

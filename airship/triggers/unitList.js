@@ -1,7 +1,9 @@
 var convert = require('xml-js');
+const fs = require('fs');
+const path = require('path');
 
 const unitList = (z, bundle) => {
-  let xml = '<?xml version="1.0" encoding="UTF-8"?><SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="https://secure.airship.co.uk/SOAP/V3/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"><SOAP-ENV:Body><ns1:unitList><username xsi:type="xsd:string">{{username}}</username><password xsi:type="xsd:string">{{password}}</password></ns1:unitList></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+  let xml = fs.readFileSync(path.resolve(__dirname, '../soap-envelopes/list_units.xml'), 'utf-8');
   xml = xml.replace(/{{username}}/g, bundle.authData.soap_username);
   xml = xml.replace(/{{password}}/g, bundle.authData.soap_password);
 

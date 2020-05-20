@@ -1,8 +1,9 @@
 var convert = require('xml-js');
+const fs = require('fs');
+const path = require('path');
 
 const searchContact = (z, bundle) => {
-  // let xml = fs.readFileSync(path.resolve(__dirname, './soap-envelopes/get_system_users.xml'), 'utf-8');
-  let xml = '<?xml version="1.0" encoding="UTF-8"?><SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="https://secure.airship.co.uk/SOAP/V3/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"><SOAP-ENV:Body><ns1:getContactEmail><username xsi:type="xsd:string">{{username}}</username><password xsi:type="xsd:string">{{password}}</password><email xsi:type="xsd:string">{{email}}</email></ns1:getContactEmail></SOAP-ENV:Body></SOAP-ENV:Envelope>'
+  let xml = fs.readFileSync(path.resolve(__dirname, '../soap-envelopes/search_contact.xml'), 'utf-8');
   xml = xml.replace(/{{username}}/g, bundle.authData.soap_username);
   xml = xml.replace(/{{password}}/g, bundle.authData.soap_password);
   xml = xml.replace(/{{email}}/g, bundle.inputData.email);
@@ -35,7 +36,7 @@ const searchContact = (z, bundle) => {
     return contactData === undefined ? [] : [{
       id: contactData['contactid']['_text'],
       firstname: contactData['firstname']['_text'],
-      mobilenumber: contactData['mobilenumber']['_text'],
+      // mobilenumber: contactData['mobilenumber']['_text'],
       email: contactData['email']['_text'],
       allowsms: contactData['allowsms']['_text'],
       allowcall: contactData['allowcall']['_text'],
