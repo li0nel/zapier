@@ -1,0 +1,18 @@
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="https://secure.airship.co.uk/SOAP/V3/" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+  <SOAP-ENV:Body>
+    <ns1:groupListResponse>
+      <output SOAP-ENC:arrayType="ns1:Folder[1]" xsi:type="ns1:GroupListArray">
+        <item xsi:type="ns1:Folder">
+          <folderid xsi:type="xsd:int">9376</folderid>
+          <foldername xsi:type="xsd:string">Default</foldername>
+          <groups SOAP-ENC:arrayType="ns1:Group[1]" xsi:type="ns1:GroupsArray">
+            <item xsi:type="ns1:Group">
+              <groupid xsi:type="xsd:int">93308</groupid>
+              <groupname xsi:type="xsd:string">Default</groupname>
+            </item>
+          </groups>
+        </item>
+      </output>
+    </ns1:groupListResponse>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

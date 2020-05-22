@@ -1,0 +1,11 @@
+{
+  "id": 102852,
+  "key": "App102852",
+  "includeInBuild": [
+    "soap-envelopes/get_system_users.xml",
+    "soap-envelopes/create_contact.xml",
+    "soap-envelopes/list_groups.xml",
+    "soap-envelopes/list_units.xml",
+    "soap-envelopes/search_contact.xml"
+  ]
+}

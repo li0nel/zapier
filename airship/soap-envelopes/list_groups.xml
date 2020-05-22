@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns1="https://secure.airship.co.uk/SOAP/V3/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+   <SOAP-ENV:Body>
+      <ns1:groupList>
+         <username xsi:type="xsd:string">{{username}}</username>
+         <password xsi:type="xsd:string">{{password}}</password>
+         <unitID xsi:type="xsd:int">{{unit_id}}</unitID>
+      </ns1:groupList>
+   </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
