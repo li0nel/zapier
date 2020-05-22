@@ -1,17 +1,15 @@
-/* global describe, it, before */
+/* globals describe, it */
 require('should');
 const zapier = require('zapier-platform-core');
+zapier.tools.env.inject();
+
 const App = require('../index');
 const appTester = zapier.createAppTester(App);
+const nock = require('nock');
+
 const sample_token = require('../samples/token')
 const sample_refresh_token = require('../samples/refresh_token')
 const sample_user_info = require('../samples/user_info')
-const nock = require('nock');
-
-process.env.AUTH0_CLIENT_ID='1234'
-process.env.AUTH0_CLIENT_SECRET='asdf'
-process.env.AUTH0_DOMAIN='example.com'
-process.env.AUTH0_AUDIENCE = 'https://order.staging.wi5.io'
 
 describe('oauth2 app', () => {
   it('generates an authorize URL', () => {
