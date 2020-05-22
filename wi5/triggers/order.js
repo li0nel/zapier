@@ -1,16 +1,16 @@
-const sample = require('../samples/sample_order');
+const sample = require('../samples/order');
 
 const triggerOrder = (z, bundle) => {
   const responsePromise = z.request({
     method: 'GET',
-    url: `https://${bundle.inputData.appUrl}/api/merchant/orders`,
+    url: `https://${bundle.inputData.appUrl}/api/protected/merchant/orders`,
     params: {
       // add pagination here
     }
   });
 
   return responsePromise
-    .then(response => JSON.parse(response.content).data);
+    .then(response => JSON.parse(response.content));
 };
 
 module.exports = {
