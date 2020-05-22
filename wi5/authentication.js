@@ -1,7 +1,3 @@
-process.env.AUTH0_DOMAIN = process.env.AUTH0_DOMAIN || 'example.com';
-process.env.AUTH0_CLIENT_ID = process.env.AUTH0_CLIENT_ID || '1234';
-process.env.AUTH0_CLIENT_SECRET = process.env.AUTH0_CLIENT_SECRET || 'asdf';
-
 const getAccessToken = (z, bundle) => {
   const promise = z.request(`https://${process.env.AUTH0_DOMAIN}/oauth/token`, {
     method: 'POST',
@@ -25,11 +21,6 @@ const getAccessToken = (z, bundle) => {
 
     const result = JSON.parse(response.content);
 
-    z.console.log({
-      access_token: result.access_token,
-      refresh_token: result.refresh_token,
-    });
-    
     return {
       access_token: result.access_token,
       refresh_token: result.refresh_token,

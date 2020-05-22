@@ -1,11 +1,13 @@
 /* globals describe, it */
-const sample = require('../samples/order');
-const sample_orders = require('../samples/orders');
 require('should');
 const zapier = require('zapier-platform-core');
+zapier.tools.env.inject();
+
 const App = require('../index');
 const appTester = zapier.createAppTester(App);
 const nock = require('nock');
+const sample = require('../samples/order');
+const sample_orders = require('../samples/orders');
 
 describe('New Order trigger', () => {
   it('should load order', done => {
