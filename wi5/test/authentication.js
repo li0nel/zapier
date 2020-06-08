@@ -24,7 +24,7 @@ describe('oauth2 app', () => {
 
     return appTester(App.authentication.oauth2Config.authorizeUrl, bundle).then(
       authorizeUrl => {
-        authorizeUrl.should.be.exactly(`https://${process.env.AUTH0_DOMAIN}/authorize?client_id=${process.env.AUTH0_CLIENT_ID}&client_secret=${process.env.AUTH0_CLIENT_SECRET}&state=4444&redirect_uri=${encodeURIComponent(oauth_redirect_uri)}&response_type=code&scope=openid%20email%20offline_access&audience=${encodeURIComponent(process.env.AUTH0_AUDIENCE)}`)
+        authorizeUrl.should.be.exactly(`https://${process.env.AUTH0_DOMAIN}/authorize?client_id=${process.env.AUTH0_CLIENT_ID}&state=4444&redirect_uri=${encodeURIComponent(oauth_redirect_uri)}&response_type=code&scope=openid%20email%20offline_access&audience=${encodeURIComponent(process.env.AUTH0_AUDIENCE)}`)
       }
     );
   });
