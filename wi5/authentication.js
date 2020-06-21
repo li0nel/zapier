@@ -29,6 +29,8 @@ const getAccessToken = (z, bundle) => {
 };
 
 const refreshAccessToken = (z, bundle) => {
+  z.console.log('refreshAccessToken')
+
   const promise = z.request(`https://${process.env.AUTH0_DOMAIN}/oauth/token`, {
     method: 'POST',
     body: {
@@ -46,10 +48,13 @@ const refreshAccessToken = (z, bundle) => {
   // return it here to update the user's auth on Zapier.
   return promise.then(response => {
     if (response.status !== 200) {
+      z.console.log('Unable to fetch access token: ', response.content)
       throw new Error('Unable to fetch access token: ' + response.content);
     }
 
     const result = JSON.parse(response.content);
+    z.console.log('Refreshed access token: ', result.access_token)
+
     return {
       access_token: result.access_token
     };
