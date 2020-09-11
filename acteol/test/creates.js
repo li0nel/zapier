@@ -1,5 +1,6 @@
 /* globals describe, it */
 const sample = require('../samples/contact');
+const sample2 = require('../samples/contactPreferences');
 const nock = require('nock');
 const zapier = require('zapier-platform-core');
 
@@ -8,9 +9,13 @@ const appTester = zapier.createAppTester(App);
 require('should');
 
 const mockBaseURL = 'example.com';
-const scope = nock(/example\.com/)
+let scope = nock(/example\.com/)
   .post('/api/Contact/PostContact')
   .reply(200, sample);
+
+scope = nock(/example\.com/)
+  .post('/api/CommunicationPreference/PostEmailOptin')
+  .reply(200, sample2);
 
 describe('creates', () => {
   describe('create contact create', () => {

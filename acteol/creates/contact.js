@@ -1,5 +1,24 @@
 const sample = require('../samples/contact');
 
+const createContactWithPreferences = (z, bundle) => {
+  return createContact(z, bundle).then(contact => {
+    return updateContactPreferences(z, bundle, contact).then(c => c);
+  })
+}
+
+const updateContactPreferences = (z, bundle, contact) => {
+  const promise = z.request({
+    url: `https://${bundle.authData.atreemoURL}/api/CommunicationPreference/PostEmailOptin`,
+    method: 'POST',
+    body: {
+      Email: bundle.inputData.email,
+      EmailOptIn: bundle.inputData.emailOptIn,
+    }
+  });
+
+  return promise.then(() => contact);
+}
+
 const createContact = (z, bundle) => {
   const promise = z.request({
     url: `https://${bundle.authData.atreemoURL}/api/Contact/PostContact`,
@@ -30,9 +49,10 @@ module.exports = {
   operation: {
     inputFields: [
       { key: 'firstName', required: true, type: 'string' },
-      { key: 'email', required: true, type: 'string' }
+      { key: 'email', required: true, type: 'string' },
+      { key: 'emailOptIn', required: true, type: 'string' }
     ],
-    perform: createContact,
+    perform: createContactWithPreferences,
 
     // In cases where Zapier needs to show an example record to the user, but we are unable to get a live example
     // from the API, Zapier will fallback to this hard-coded sample. It should reflect the data structure of
