@@ -16,7 +16,7 @@ const createContact = (z, bundle) => {
   xml = xml.replace(/{{first_name}}/g, bundle.inputData.first_name);
   xml = xml.replace(/{{mobile_number}}/g, bundle.inputData.mobile_number | '');
   xml = xml.replace(/{{email}}/g, bundle.inputData.email);
-  xml = xml.replace(/{{allow_email}}/g, 'Y'); //TODO
+  xml = xml.replace(/{{allow_email}}/g, bundle.inputData.emailOptIn == 'True' ? 'Y' : 'N');
   xml = xml.replace(/{{source_id}}/g, bundle.authData.source_id);
   xml = xml.replace(/{{group_id}}/g, bundle.inputData.group_id);
 
@@ -79,7 +79,8 @@ module.exports = {
       },
       { key: 'email', required: true, type: 'string' },
       { key: 'first_name', required: true, type: 'string' },
-      { key: 'mobile_number', required: false, type: 'string' }
+      { key: 'mobile_number', required: false, type: 'string' },
+      { key: 'emailOptIn', required: true, type: 'string' }
     ],
     perform: createContactIfNotExists,
 
