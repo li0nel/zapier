@@ -100,7 +100,7 @@ module.exports = {
         redirect_uri: '{{bundle.inputData.redirect_uri}}',
         response_type: 'code',
         scope: 'openid email offline_access',
-        audience: 'https://order.staging.wi5.io'
+        audience: 'https://order.production.wi5.io'
       }
     },
     // Step 2 of the OAuth flow; Exchange a code for an access token.
