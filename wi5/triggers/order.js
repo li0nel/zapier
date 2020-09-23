@@ -3,7 +3,7 @@ const sample = require('../samples/order');
 const triggerOrder = (z, bundle) => {
   const responsePromise = z.request({
     method: 'GET',
-    url: `https://${bundle.inputData.appUrl}/api/protected/merchant/orders`,
+    url: `https://${bundle.inputData.merchant_url}/api/protected/merchant/orders`,
     params: {
       // add pagination here
     }
@@ -24,7 +24,7 @@ module.exports = {
 
   operation: {
     inputFields: [
-      {key: 'appUrl', label:'Application URL', required: true},
+      {key: 'merchant_url', label:'Merchant URL', required: true, dynamic: 'merchant.url.name'},
     ],
     perform: triggerOrder,
     performList: triggerOrder,

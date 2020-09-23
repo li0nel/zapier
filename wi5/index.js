@@ -1,4 +1,5 @@
 const orderTrigger = require('./triggers/order');
+const merchantList = require('./triggers/merchantList');
 const authentication = require('./authentication');
 
 // To include the Authorization header on all outbound requests, simply define a function here.
@@ -35,6 +36,7 @@ const App = {
 
   triggers: {
     [orderTrigger.key]: orderTrigger,
+    [merchantList.key]: merchantList,
   },
 
   searches: {
