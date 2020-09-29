@@ -35,9 +35,9 @@ const searchContact = (z, bundle) => {
 
     return contactData === undefined ? [] : [{
       id: contactData['contactid']['_text'],
-      firstname: contactData['firstname']['_text'],
+      firstname: contactData['firstname'] ? contactData['firstname']['_text'] : null,
       // mobilenumber: contactData['mobilenumber']['_text'],
-      email: contactData['email']['_text'],
+      email: contactData['email'] ? contactData['email']['_text'] : null,
       allowsms: contactData['allowsms']['_text'],
       allowcall: contactData['allowcall']['_text'],
       allowemail: contactData['allowemail']['_text'],
