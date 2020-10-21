@@ -14,7 +14,7 @@ let scope = nock(/example\.com/)
   .reply(200, sample);
 
 scope = nock(/example\.com/)
-  .post('/api/CommunicationPreference/PostEmailOptin')
+  .post('/api/CommunicationPreference/Post')
   .reply(200, sample2);
 
 describe('creates', () => {

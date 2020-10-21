@@ -8,28 +8,46 @@ const createContactWithPreferences = (z, bundle) => {
 
 const updateContactPreferences = (z, bundle, contact) => {
   const promise = z.request({
-    url: `https://${bundle.authData.atreemoURL}/api/CommunicationPreference/PostEmailOptin`,
+    url: `https://${bundle.authData.atreemoURL}/api/CommunicationPreference/Post`,
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8'
+    },
     body: {
-      Email: bundle.inputData.email,
+      CustomerID: contact.CtcID,
       EmailOptIn: bundle.inputData.emailOptIn,
     }
   });
 
-  return promise.then(() => contact);
+  return promise.then(response => {
+    if (response.json == undefined) {
+      throw new z.errors.RefreshAuthError()
+    }
+
+    return contact
+  });
 }
 
 const createContact = (z, bundle) => {
   const promise = z.request({
     url: `https://${bundle.authData.atreemoURL}/api/Contact/PostContact`,
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8'
+    },
     body: {
       FirstName: bundle.inputData.firstName,
       Email: bundle.inputData.email,
     }
   });
 
-  return promise.then(response => response.json);
+  return promise.then(response => {
+    if (response.json == undefined) {
+      throw new z.errors.RefreshAuthError();
+    }
+
+    return response.json
+  });
 }
 
 // We recommend writing your creates separate like this and rolling them
@@ -64,11 +82,11 @@ module.exports = {
     // outputFields: () => { return []; }
     // Alternatively, a static field definition should be provided, to specify labels for the fields
     outputFields: [
-      { key: 'CtcID', label: 'Contact ID' },
+      { key: 'CtcID', label: 'Contact ID', type: 'integer'},
       { key: 'FirstName', label: 'First name' },
       { key: 'LastName', label: 'Last name' },
       { key: 'Email', label: 'Email' },
-      { key: 'CpyID', label: 'Company ID' }
+      { key: 'CpyID', label: 'Company ID', type: 'integer'}
     ]
   }
 };
