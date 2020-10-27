@@ -25,7 +25,7 @@ describe('creates', () => {
           atreemoURL: mockBaseURL
         },
         inputData: {
-          firstName: 'Leo',
+          firstName: 'Leo Martin',
           email: 'leo@gmail.com'
         }
       };

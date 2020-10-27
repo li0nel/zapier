@@ -36,7 +36,7 @@ const createContact = (z, bundle) => {
       'Content-Type': 'application/json; charset=utf-8'
     },
     body: {
-      FirstName: bundle.inputData.firstName,
+      FirstName: bundle.inputData.firstName.split(" ").length ? bundle.inputData.firstName.split(" ") : bundle.inputData.firstName,
       Email: bundle.inputData.email,
     }
   });
