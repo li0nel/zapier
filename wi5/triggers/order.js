@@ -6,6 +6,7 @@ const triggerOrder = (z, bundle) => {
     url: `https://${bundle.inputData.merchant_url}/api/protected/merchant/orders`,
     params: {
       // add pagination here
+      paymentStatus: 'pos-submitted,payment-captured'
     }
   });
 

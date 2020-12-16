@@ -13,7 +13,7 @@ describe('New Order trigger', () => {
   it('should load order', done => {
     const bundle = {
       inputData: {
-        appUrl: 'example.com'
+        merchant_url: 'example.com'
       },
       cleanedRequest: {
         id: sample.id,
@@ -28,6 +28,7 @@ describe('New Order trigger', () => {
 
     const scope = nock(/example\.com/)
     .get('/api/protected/merchant/orders')
+    .query({paymentStatus: 'pos-submitted,payment-captured'})
     .reply(200, sample_orders);
 
     appTester(App.triggers.order.operation.perform, bundle)
@@ -44,7 +45,7 @@ describe('New Order trigger', () => {
   it('should load order from list', done => {
     const bundle = {
       inputData: {
-        appUrl: 'example.com'
+        merchant_url: 'example.com'
       },
       cleanedRequest: {
         id: sample.id,
@@ -59,6 +60,7 @@ describe('New Order trigger', () => {
 
     const scope = nock(/example\.com/)
     .get('/api/protected/merchant/orders')
+    .query({paymentStatus: 'pos-submitted,payment-captured'})
     .reply(200, sample_orders);
 
     appTester(App.triggers.order.operation.performList, bundle)
